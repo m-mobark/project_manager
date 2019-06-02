@@ -1,0 +1,59 @@
+﻿@model IEnumerable<projects_management.Models.pm_projectTeam>
+
+@{
+    ViewBag.Title = "ProjectDevelopers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    int user_role = int.Parse(Session["user_role_id"].ToString());
+}
+
+<h2>ProjectDevelopers</h2>
+
+<table class="table"  id="mytable">
+  <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pm_project.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pm_User.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pm_Role.role_title)
+        </th>
+        <th></th>
+    </tr>
+
+</thead>
+<tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pm_project.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pm_User.firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pm_Role.role_title)
+        </td>
+        <td>
+            @if (user_role == 3 || user_role == 2)
+            {
+                <a href="/Feedback/Create/@item.id"> Feedback </a> <p>|</p>
+                <a href= "/Invitation/SoftDelete/@item.id"> Delete </a>
+            }
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
